@@ -1,0 +1,15 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "This is web server that 1.\tAccepts and processes request messages submitted from browser, and generates and sends response messages back to browser for display",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "author": "Josh Date",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
