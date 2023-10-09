@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    {{>header}}
+    <form action="/login" method="post" class="form">
+        <div class="container">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <p class="error">{{errorUsername}}</p>
+        </div>
+
+        <div class="container">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <p class="error">{{errorPassword}}</p>
+        </div>
+
+        <button class="btn">Submit</button>
+    </form>
+    {{>footer}}
+</body>
+</html>
