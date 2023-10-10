@@ -14,8 +14,24 @@
 .link {
     width: 100px;
     height: 30px;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
 }
 
 .username.link:hover {
     color: red; 
+}
+
+.headerTitle{
+    font-size: 20px;
+    color: blue;
+}
+
+.navigation-container{
+    background-color: azure;
+}
+
+body{
+    margin: 0px;
 }

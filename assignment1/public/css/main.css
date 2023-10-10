@@ -1,0 +1,18 @@
+.bankForm{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+}
+
+.bankForm > input {
+
+}
+
+.bankForm > label {
+
+}
+
+.bankForm > button {
+
+}

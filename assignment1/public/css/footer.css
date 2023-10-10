@@ -1,0 +1,18 @@
+.footerContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: azure;
+    flex-wrap: wrap;
+}
+
+.footerContainer > p{
+    font-size: 15px;
+    display: block;
+    margin-right: 16px;
+}
+.footerContainer >p > span{
+    font-weight: bold;
+    font-size: 18px;
+    display: block;
+}
