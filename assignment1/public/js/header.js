@@ -12,7 +12,7 @@ function showLogoutLink() {
 
 function hideLogoutLink() {
     const usernameElement = document.querySelector('.username');
-    clearTimeout(timeoutId); // Clear any existing timeout
+    clearTimeout(timeoutId); 
 
     const cookieString = document.cookie;
     const decodedCookieString = decodeURIComponent(cookieString);

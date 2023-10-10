@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
     }
 });
 
-
+//Delete Route
 
 // router.delete("/delete", (_, res) => {
 //     res.clearCookie('loggedInUser')

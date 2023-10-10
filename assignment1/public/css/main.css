@@ -1,18 +1,96 @@
+/* Bank Styles */
 .bankForm{
  display: flex;
  justify-content: center;
  align-items: center;
  flex-direction: column;
+ margin: 20px;
 }
 
 .bankForm > input {
-
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
 }
 
-.bankForm > label {
-
+.bankForm > div > label {
+    font-size: 20px;
+    font-weight: bold;
 }
+ 
 
 .bankForm > button {
+    border: 1px solid paleturquoise;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
+.bankForm > div {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+.bankForm > img {
+    width: 350px;
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 8px paleturquoise solid;
+}
+
+.bankTitle{
+    text-align: center;
+    height: 0;
+    font-size: 27px;
+    color: darkblue;
+}
+
+/* Login Page */
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.loginContainer > input{
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.loginContainer > label{
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.btn{
+    border: 1px solid paleturquoise;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.error{
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+html,body{
+    margin: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

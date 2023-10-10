@@ -1,14 +1,14 @@
 <nav class="navigation-container">
-        <div class="container">
-            <h1 class="headerTitle">WEB BANK</h1>
-            <div>
-                 {{#if user}}
-                    {{#with user}}
-                        <div class="username">
-                            {{username}}
-                        </div>
-                    {{/with}}  
-                {{/if}}
-            </div>
+    <div class="container">
+        <h1 class="headerTitle">WEB BANK</h1>
+        <div>
+                {{#if user}}
+                {{#with user}}
+                    <div class="username">
+                        {{username}}
+                    </div>
+                {{/with}}  
+            {{/if}}
         </div>
+    </div>
 </nav>
