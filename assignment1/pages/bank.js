@@ -10,10 +10,12 @@ router.get("/", (req, res) => {
     }
 });
 
-router.delete("/delete", (_, res) => {
-    res.clearCookie('loggedInUser')
-    res.redirect("/login");
-})
+
+
+// router.delete("/delete", (_, res) => {
+//     res.clearCookie('loggedInUser')
+//     res.redirect("/login");
+// })
 
 
 

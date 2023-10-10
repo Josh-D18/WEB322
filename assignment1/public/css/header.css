@@ -1,7 +1,21 @@
 .container{
-
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.username::hover{
+.username {
+    color: black;
+    transition: color 2.9s ease-in-out;
+    height: 30px;
+}
 
+.link {
+    width: 100px;
+    height: 30px;
+}
+
+.username.link:hover {
+    color: red; 
 }

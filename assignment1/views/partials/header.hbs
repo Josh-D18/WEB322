@@ -1,14 +1,14 @@
 <nav class="">
         <div class="container">
             <h1 class="headerTitle">WEB BANK</h1>
-            <ul>
+            <div>
                  {{#if user}}
                     {{#with user}}
-                        <li class="username" onmouseover="showLogoutLink(this)" onmouseout="hideLogoutLink(this)">
+                        <div class="username">
                             {{username}}
-                        </li>
+                        </div>
                     {{/with}}  
                 {{/if}}
-            </ul>
+            </div>
         </div>
 </nav>
