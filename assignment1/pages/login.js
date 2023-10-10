@@ -19,6 +19,7 @@ router.post("/", (req, res) => {
     } else if (users[username] !== password) {
         res.status(400).render('index', { errorPassword: "Incorrect Password" });
     } else {
+        res.cookie("loggedInUser", {username})
         res.redirect("/bank")
     }
 })

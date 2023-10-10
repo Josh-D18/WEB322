@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <script src="../public/js/header.js"></script>
+    <title>Bank</title>
+</head>
+<body>
+    {{>header}}
+    
+    <form action="" method="post">
+        <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number">
+        <div>
+            <label for="balance">Balance</label>
+            <input type="radio" value="balance" id="balance" name="account">
+
+            <label for="deposit">Deposit</label>
+            <input type="radio" value="deposit" id="deposit" name="account">
+        </div>
+
+        <button type="button">Submit</button>
+    </form>
+    {{>footer}}
+</body>
+</html>

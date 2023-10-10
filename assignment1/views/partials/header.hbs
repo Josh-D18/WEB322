@@ -1,17 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <nav>
+<nav class="">
         <div class="container">
             <h1 class="headerTitle">WEB BANK</h1>
             <ul>
-                <li>Login</li>
+                 {{#if user}}
+                    {{#with user}}
+                        <li class="username" onmouseover="showLogoutLink(this)" onmouseout="hideLogoutLink(this)">
+                            {{username}}
+                        </li>
+                    {{/with}}  
+                {{/if}}
             </ul>
         </div>
-    </nav>
-</body>
-</html>
+</nav>

@@ -3,13 +3,17 @@ const exphbs = require('express-handlebars');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const PORT = 3000;
 const login = require('./pages/login');
 const bank = require('./pages/bank');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '/public')));
+app.use('/public', express.static(path.join(__dirname, 'public'), { 
+    extensions: ['css', 'js']
+}));
+app.use(cookieParser());
 
 app.engine('hbs', exphbs.engine({
     extname: 'hbs',

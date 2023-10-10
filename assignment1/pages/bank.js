@@ -1,11 +1,19 @@
 const express = require('express');
-const router = express.Router()
+const router = express.Router();
 
 router.get("/", (req, res) => {
-    const user = req;
-    console.log(user);
-    res.send('GET request to the homepage');
+    const user = req.cookies.loggedInUser;
+    if (user) {
+        res.render('bank', {user});
+    } else{
+        res.redirect("/");
+    }
 });
+
+router.delete("/delete", (_, res) => {
+    res.clearCookie('loggedInUser')
+    res.redirect("/login");
+})
 
 
 
