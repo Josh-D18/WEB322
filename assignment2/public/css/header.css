@@ -1,0 +1,34 @@
+.container{
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.username {
+    color: black;
+    transition: color 2.9s ease-in-out;
+    height: 30px;
+}
+
+.link {
+    width: 202px;
+    height: 30px;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+}
+
+.username.link:hover {
+    color: red; 
+}
+
+.headerTitle{
+    font-size: 20px;
+    color: blueviolet;
+}
+
+.navigation-container{
+    background-color: azure;
+}
