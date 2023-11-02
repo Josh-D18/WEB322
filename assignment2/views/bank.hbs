@@ -10,9 +10,8 @@
 </head>
 <body>
     {{>header}}
-
     <h2 class="bankTitle">Web Bank</h2>
-    <form action="" method="post" class="bankForm">
+    <form action="/bank" method="post" class="bankForm">
         <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required>
         <img src="../public/images/bankimage.jpg" alt="bank keypad" class="img">
         <div>
@@ -22,7 +21,7 @@
             <label for="deposit">Deposit</label>
             <input type="radio" value="deposit" id="deposit" name="account">
         </div>
-        <button type="button">Submit</button>
+        <button type="submit">Submit</button>
     </form>
     {{>footer}}
 </body>

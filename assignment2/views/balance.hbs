@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <title>Balance Page</title>
+</head>
+<body>
+    {{>header}}
+    <h1>Balance</h1>
+    <div>
+        <div>
+            <h3>Account Number</h3>
+            <p>{{account.accountNumber}}</p>
+        </div>
+        <div>
+            <h3>Account Type</h3>
+            <p>{{account.accountType}}</p>
+        </div>
+        <div>
+            <h3>Amount In Account</h3>
+            <p>{{account.accountBalance}}</p>
+        </div>
+        <button type="button" id="btn">Go back</button>
+    </div>
+
+
+       
+    {{>footer}}
+</body>
+<script type="text/javascript">
+    const button = document.getElementById("btn");
+    button.onclick = () => {
+        location.href = "/bank";
+    }
+</script>
+</html>

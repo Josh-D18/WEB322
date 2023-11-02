@@ -1,13 +1,24 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    const user = req.cookies.loggedInUser;
-    if (user) {
-        res.render('bank', {user});
-    } else{
-        res.redirect("/");
-    }
+  const user = req.cookies.loggedInUser;
+  if (user) {
+    res.render("bank", { user });
+  } else {
+    res.redirect("/");
+  }
+});
+
+router.post("/", (req, res) => {
+  const accountNumber = req.body.accountNumber;
+  const account = req.body.account;
+
+  if (account === "balance") {
+    res.redirect(`/balance/${accountNumber}`);
+  } else if (account === "deposit") {
+    res.redirect(`/deposit/${accountNumber}`);
+  }
 });
 
 //Delete Route
@@ -16,7 +27,5 @@ router.get("/", (req, res) => {
 //     res.clearCookie('loggedInUser')
 //     res.redirect("/login");
 // })
-
-
 
 module.exports = router;
