@@ -6,11 +6,29 @@
     <link rel="stylesheet" href="../public/css/header.css">
     <link rel="stylesheet" href="../public/css/footer.css">
     <link rel="stylesheet" href="../public/css/main.css">
-    <title>Login Page</title>
+    <title>Deposit Page</title>
 </head>
 <body>
     {{>header}}
+        <h1>Deposit</h1>
+        <div>
+            <div>
+            <h2>Account Number</h2>
+            <p>{{account.accountNumber}}</p>
+        </div>
+        <form action="/deposit/{{account.accountNumber}}"method="post">
+            <input type="text" name="depositAmount" id="depositAmount" placeholder="Enter the amount you want to deposit">
 
+            <button type="submit">Submit</button>
+        </form>
+        <button type="submit" id="cancelBtn">Cancel</button>
+        </div>
     {{>footer}}
 </body>
+<script type="text/javascript">
+    const btn = document.getElementById("cancelBtn");
+    btn.addEventListener("click", () => {
+        location.href = "/";
+    })
+</script>
 </html>
