@@ -12,7 +12,7 @@
     {{>header}}
     <h2 class="bankTitle">Web Bank</h2>
     <form action="/bank" method="post" class="bankForm">
-        <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required>
+        <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required="true">
         <img src="../public/images/bankimage.jpg" alt="bank keypad" class="img">
         <div>
             <label for="balance">Balance</label>
@@ -20,10 +20,35 @@
 
             <label for="deposit">Deposit</label>
             <input type="radio" value="deposit" id="deposit" name="account">
+
+            <label for="withdrawal">Withdrawal</label>
+            <input type="radio" value="withdrawal" id="withdrawal" name="account">
         </div>
         <button type="submit">Submit</button>
+    </form>
+
+    <form action="/openAccount" method="get" class="bankForm" id="openAccountForm">
+    <div>
+        <label for="openAccount">Open An Account</label>
+        <input type="radio" id="openAccount" name="openAccount">
+    </div>
+        <button type="submit">Create An Account</button>
     </form>
     {{>footer}}
 </body>
 <script src="../public/js/header.js"></script>
+<script>
+    const openAccountForm = document.getElementById("openAccountForm");
+    const openAccount = document.getElementById("openAccount");
+
+    function submitFormOpenAccount(){
+
+    }
+
+    openAccountForm.addEventListener("submit", (e) => {
+        if(!openAccount.checked){
+            e.preventDefault();
+        }
+    })
+</script>
 </html>

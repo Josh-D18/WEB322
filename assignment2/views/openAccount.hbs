@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <title>Bank</title>
+</head>
+<body>
+    {{>header}}
+    <h2 class="">Create an Account</h2>
+
+
+    <form class="form" method="post" action="/openAccount">
+        <h3>Account Types</h3>
+
+        <label for="chequing">Chequing</label>
+        <input type="radio" id="chequing" name="accountType" value="chequing">
+
+        <label for="savings">Savings</label>
+        <input type="radio" id="savings" name="accountType" value="savings">
+
+        <button class="btn" id="btn">Submit</button>
+        <button class="btn" id="cancelBtn" type="button">Cancel</button>
+    </form>
+
+
+    {{>footer}}
+</body>
+<script src="../public/js/header.js">
+</script>
+<script type="text/javascript">
+   const chequingInput = document.getElementById("chequing");
+    const savingsInput = document.getElementById("savings");
+    const btn = document.getElementById("btn");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    if (!chequingInput.checked && !savingsInput.checked) {
+            btn.disabled = true;
+    } 
+
+    function cancel (){
+        location.href = "/bank";
+    }
+
+    function isChecked() {
+        if (!chequingInput.checked && !savingsInput.checked) {
+            btn.disabled = true;
+        } else {
+            btn.disabled = false;
+        }
+    }
+
+    chequingInput.addEventListener("click", isChecked);
+    savingsInput.addEventListener("click", isChecked);
+    cancelBtn.addEventListener("click", cancel);
+</script>
+</html>

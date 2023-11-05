@@ -13,7 +13,8 @@ router.get("/:accountNumber", (req, res) => {
     };
     res.render("balance", { account });
   } else {
-    res.send("/bank").status(400);
+    console.error("Account does not exist!");
+    res.redirect("/bank");
   }
 });
 

@@ -10,6 +10,8 @@ const login = require("./pages/login");
 const bank = require("./pages/bank");
 const balance = require("./pages/balance");
 const deposit = require("./pages/deposit");
+const withdrawal = require("./pages/withdrawal");
+const openAnAccount = require("./pages/openAccount");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
@@ -40,6 +42,8 @@ app.use("/login", login);
 app.use("/bank", bank);
 app.use("/balance", balance);
 app.use("/deposit", deposit);
+// app.use("/withdrawal", withdrawal);
+app.use("/openAccount", openAnAccount);
 
 app.listen(PORT, () => {
   console.log(`Listening to PORT ${PORT}`);
