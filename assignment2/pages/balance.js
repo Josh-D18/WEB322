@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 
 router.get("/:accountNumber", (req, res) => {
+  const user = req.cookies.loggedInUser;
   const accountsPath = path.join(__dirname, "../accounts.json");
   const accountsData = fs.readFileSync(accountsPath, "utf8");
   const accounts = JSON.parse(accountsData);
@@ -33,7 +34,7 @@ router.get("/:accountNumber", (req, res) => {
       accountType: accounts[req.params.accountNumber].accountType,
       accountNumber: req.params.accountNumber,
     };
-    res.render("balance", { account });
+    res.render("balance", { account, user });
   } else {
     console.error("Account does not exist!");
     res.redirect("/bank");

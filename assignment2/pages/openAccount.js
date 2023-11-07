@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const accounts = require("../accounts.json");
 const fs = require("fs");
 const path = require("path");
 
 router.get("/", (req, res) => {
-  res.render("openAccount");
+  const user = req.cookies.loggedInUser;
+  res.render("openAccount", user);
 });
 
 router.post("/", (req, res) => {
+  const user = req.cookies.loggedInUser;
   const accountType = req.body.accountType;
   try {
     const accountsPath = path.join(__dirname, "../accounts.json");
@@ -24,7 +25,7 @@ router.post("/", (req, res) => {
       lastID = "00000" + lastID;
     }
 
-    accounts.lastID = `${req.params.accountNumber}`;
+    accounts.lastID = lastID;
     const message = `${accountType} Account #${lastID} Created`;
 
     accounts[lastID] = {
@@ -34,7 +35,7 @@ router.post("/", (req, res) => {
 
     fs.writeFileSync(accountsPath, JSON.stringify(accounts, null, 2), "utf8");
 
-    res.render("bank", { accounts, message });
+    res.render("bank", { accounts, message, user });
   } catch (error) {
     console.error(error);
     res.status(400).send("Error creating account.");

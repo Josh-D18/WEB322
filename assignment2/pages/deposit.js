@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 router.get("/:accountNumber", (req, res) => {
+  const user = req.cookies.loggedInUser;
   let accountNumbers = Object.keys(accounts);
 
   if (accountNumbers.includes(req.params.accountNumber)) {
@@ -13,7 +14,7 @@ router.get("/:accountNumber", (req, res) => {
       accountType: accounts[req.params.accountNumber].accountType,
       accountNumber: req.params.accountNumber,
     };
-    res.render("deposit", { account });
+    res.render("deposit", { account, user });
   } else {
     console.error("Account does not exist!");
     res.redirect("/bank");
