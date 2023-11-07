@@ -15,6 +15,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const accountNumber = req.body.accountNumber;
   const account = req.body.account;
+  const user = req.cookies.loggedInUser;
   let message = "";
 
   try {
@@ -33,7 +34,7 @@ router.post("/", (req, res) => {
       }
     } else {
       message = "Account Does Not Exist!";
-      res.render("bank", { accounts, message });
+      res.render("bank", { accounts, message, user });
     }
   } catch (error) {
     res.status(500).send("Error parsing accounts data.");
