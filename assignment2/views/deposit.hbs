@@ -10,25 +10,27 @@
 </head>
 <body>
     {{>header}}
-        <h1>Deposit</h1>
-        <div>
+        <form action="/deposit/{{account.accountNumber}}"method="post" class="form depositForm">
+        <div class="depositContainer">
+            <h1>Deposit</h1>
             <div>
-            <h2>Account Number</h2>
-            <p>{{account.accountNumber}}</p>
+                <h2>Account Number</h2>
+                <p>{{account.accountNumber}}</p>
+            </div>
         </div>
-        <form action="/deposit/{{account.accountNumber}}"method="post">
             <input type="text" name="depositAmount" id="depositAmount" placeholder="Enter the amount you want to deposit">
 
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn">Submit</button>
+             <button type="submit" id="cancelBtn" class="btn">Cancel</button>
         </form>
-        <button type="submit" id="cancelBtn">Cancel</button>
         </div>
     {{>footer}}
 </body>
+
 <script type="text/javascript">
     const btn = document.getElementById("cancelBtn");
     btn.addEventListener("click", () => {
-        location.href = "/";
+        location.href = "/bank";
     })
 </script>
 </html>

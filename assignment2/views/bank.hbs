@@ -12,6 +12,9 @@
     {{>header}}
     <h2 class="bankTitle">Web Bank</h2>
     <form action="/bank" method="post" class="bankForm">
+        {{#if message}}
+            <p id="accountCreation">{{message}}</p>
+        {{/if}}
         <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required="true">
         <img src="../public/images/bankimage.jpg" alt="bank keypad" class="img">
         <div>
@@ -40,10 +43,15 @@
 <script>
     const openAccountForm = document.getElementById("openAccountForm");
     const openAccount = document.getElementById("openAccount");
+    const accountCreationMessage = document.getElementById("accountCreation");
 
     function submitFormOpenAccount(){
 
     }
+
+    setTimeout(() => {
+        accountCreationMessage.innerHTML = "";
+    }, 2050)
 
     openAccountForm.addEventListener("submit", (e) => {
         if(!openAccount.checked){

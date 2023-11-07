@@ -6,31 +6,36 @@
     <link rel="stylesheet" href="../public/css/header.css">
     <link rel="stylesheet" href="../public/css/footer.css">
     <link rel="stylesheet" href="../public/css/main.css">
-    <title>Bank</title>
+    <title>Open An Account</title>
 </head>
 <body>
     {{>header}}
-    <h2 class="">Create an Account</h2>
+    <div>
+        <h2 class="openAccountTitle">Create an Account</h2>
 
+        <form class="form" method="post" action="/openAccount">
+            <h3>Account Types</h3>
 
-    <form class="form" method="post" action="/openAccount">
-        <h3>Account Types</h3>
+            <span class="openAccountFormInputContainer">
+                <label for="chequing">Chequing</label>
+                <input type="radio" id="chequing" name="accountType" value="Chequing">
+            </span>
+            
+            <span class="openAccountFormInputContainer">
+                <label for="savings">Savings</label>
+                <input type="radio" id="savings" name="accountType" value="Savings">
+            </span>
 
-        <label for="chequing">Chequing</label>
-        <input type="radio" id="chequing" name="accountType" value="chequing">
+            <button class="btn" id="btn">Submit</button>
+            <button class="btn" id="cancelBtn" type="button">Cancel</button>
+        </form>
 
-        <label for="savings">Savings</label>
-        <input type="radio" id="savings" name="accountType" value="savings">
-
-        <button class="btn" id="btn">Submit</button>
-        <button class="btn" id="cancelBtn" type="button">Cancel</button>
-    </form>
-
-
+    </div>
+    
     {{>footer}}
 </body>
-<script src="../public/js/header.js">
-</script>
+<script src="../public/js/header.js"></script>
+
 <script type="text/javascript">
    const chequingInput = document.getElementById("chequing");
     const savingsInput = document.getElementById("savings");

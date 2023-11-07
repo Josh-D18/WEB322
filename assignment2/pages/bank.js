@@ -18,14 +18,9 @@ router.post("/", (req, res) => {
     res.redirect(`/balance/${accountNumber}`);
   } else if (account === "deposit") {
     res.redirect(`/deposit/${accountNumber}`);
+  } else if (account === "withdrawal") {
+    res.redirect(`/withdrawal/${accountNumber}`);
   }
 });
-
-//Delete Route
-
-// router.delete("/delete", (_, res) => {
-//     res.clearCookie('loggedInUser')
-//     res.redirect("/login");
-// })
 
 module.exports = router;

@@ -42,8 +42,8 @@ app.use("/login", login);
 app.use("/bank", bank);
 app.use("/balance", balance);
 app.use("/deposit", deposit);
-// app.use("/withdrawal", withdrawal);
 app.use("/openAccount", openAnAccount);
+app.use("/withdrawal", withdrawal);
 
 app.listen(PORT, () => {
   console.log(`Listening to PORT ${PORT}`);

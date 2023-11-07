@@ -10,8 +10,8 @@
 </head>
 <body>
     {{>header}}
-    <h1>Balance</h1>
-    <div>
+    <div class="balanceContainer">
+        <h1 class="balanceTitle">Balance</h1>
         <div>
             <h3>Account Number</h3>
             <p>{{account.accountNumber}}</p>
@@ -24,13 +24,11 @@
             <h3>Amount In Account</h3>
             <p>{{account.accountBalance}}</p>
         </div>
-        <button type="button" id="btn">Go back</button>
+        <button type="button" id="btn" class="btn">Go back</button>
     </div>
-
-
-       
     {{>footer}}
 </body>
+
 <script type="text/javascript">
     const button = document.getElementById("btn");
     button.onclick = () => {
