@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <title>Withdrawal Page</title>
+</head>
+<body>
+    {{>header}}
+    <div>
+        <div class="withdrawalContainer">
+            <h2>Withdraw</h2>
+            <h3>Account Number: {{accountNumber}}</h3>
+            <form action="/withdrawal/{{accountNumber}}" method="post" class="form withdrawalForm">
+                <label for="withdrawlAmount" class="">Amount</label>
+                <input type="text" placeholder="Enter withdrawal amount" id="withdrawlAmount" name="withdrawlAmount"/>
+
+                <button class="btn" type="submit">Submit</button>
+                <button id="btn" class="btn" type="button">Back</button>
+            </form>
+        </div>
+    </div>
+    {{>footer}}
+</body>
+<script type="text/javascript">
+    const btn = document.getElementById("btn");
+    btn.addEventListener("click", () => {
+        location.href = "/bank";
+    });
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/header.css">
+    <link rel="stylesheet" href="../public/css/footer.css">
+    <link rel="stylesheet" href="../public/css/main.css">
+    <title>Bank</title>
+</head>
+<body>
+    {{>header}}
+    <h2 class="bankTitle">Web Bank</h2>
+    <form action="/bank" method="post" class="bankForm">
+        {{#if message}}
+            <p id="accountCreation">{{message}}</p>
+        {{/if}}
+        <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required="true">
+        <img src="../public/images/bankimage.jpg" alt="bank keypad" class="img">
+        <div>
+            <label for="balance">Balance</label>
+            <input type="radio" value="balance" id="balance" name="account">
+
+            <label for="deposit">Deposit</label>
+            <input type="radio" value="deposit" id="deposit" name="account">
+
+            <label for="withdrawal">Withdrawal</label>
+            <input type="radio" value="withdrawal" id="withdrawal" name="account">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <form action="/openAccount" method="get" class="bankForm" id="openAccountForm">
+    <div>
+        <label for="openAccount">Open An Account</label>
+        <input type="radio" id="openAccount" name="openAccount">
+    </div>
+        <button type="submit">Create An Account</button>
+    </form>
+    {{>footer}}
+</body>
+<script src="../public/js/header.js"></script>
+<script>
+    const openAccountForm = document.getElementById("openAccountForm");
+    const openAccount = document.getElementById("openAccount");
+    const accountCreationMessage = document.getElementById("accountCreation");
+
+    function submitFormOpenAccount(){
+
+    }
+
+    setTimeout(() => {
+        accountCreationMessage.innerHTML = "";
+    }, 2050)
+
+    openAccountForm.addEventListener("submit", (e) => {
+        if(!openAccount.checked){
+            e.preventDefault();
+        }
+    })
+</script>
+</html>
