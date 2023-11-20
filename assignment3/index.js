@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const database = require("./database/index");
 
 const PORT = 3000;
 const login = require("./pages/login");
@@ -46,5 +47,6 @@ app.use("/openAccount", openAnAccount);
 app.use("/withdrawal", withdrawal);
 
 app.listen(PORT, () => {
+  database;
   console.log(`Listening to PORT ${PORT}`);
 });

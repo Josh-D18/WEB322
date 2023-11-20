@@ -3,7 +3,7 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const user = req.cookies.loggedInUser;
   if (user) {
     res.render("bank", { user });
