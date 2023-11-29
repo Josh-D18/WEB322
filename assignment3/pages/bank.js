@@ -9,7 +9,6 @@ router.get("/", async (req, res) => {
     savingsAccountNumber: "",
   };
 
-  console.log(user, "bank");
   try {
     const userAccount = await Client.findOne({ username: user.username });
     if (userAccount.chequingAccountNumber) {

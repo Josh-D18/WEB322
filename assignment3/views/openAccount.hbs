@@ -12,8 +12,10 @@
     {{>header}}
     <div>
         <h2 class="openAccountTitle">Create an Account</h2>
-
         <form class="form" method="post" action="/openAccount">
+        {{#if message}}
+            <p id="accountCreation">{{message}}</p>
+        {{/if}}
             <h3>Account Types</h3>
 
             <span class="openAccountFormInputContainer">
@@ -45,11 +47,13 @@
     }
 
     function cancel() {
-    location.href = "/bank";
+        location.href = "/bank";
     }
+    
 
     chequingInput.addEventListener("change", updateSubmitButtonState);
     savingsInput.addEventListener("change", updateSubmitButtonState);
     cancelBtn.addEventListener("click", cancel);
+
 </script>
 </html>

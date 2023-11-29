@@ -4,6 +4,8 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("express-flash");
 const database = require("./database/index");
 
 const PORT = 3000;
@@ -22,6 +24,8 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use(session({ secret: "key", resave: true, saveUninitialized: true }));
+app.use(flash());
 
 app.engine(
   "hbs",

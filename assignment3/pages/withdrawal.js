@@ -30,14 +30,27 @@ router.get("/:accountNumber", async (req, res) => {
 router.post("/:accountNumber", async (req, res) => {
   const user = req.cookies.loggedInUser;
   const withdrawalAmount = req.body.withdrawlAmount;
+  let account;
   try {
     const userAccount = await Client.findOne({ username: user.username });
-
+    if (userAccount.chequingAccountNumber === req.params.accountNumber) {
+      account = {
+        accountBalance: userAccount.chequingAccountBalance,
+        accountType: "Chequing",
+        accountNumber: req.params.accountNumber,
+      };
+    } else if (userAccount.savingsAccountNumber === req.params.accountNumber) {
+      account = {
+        accountBalance: userAccount.savingsAccountBalance,
+        accountType: "Savings",
+        accountNumber: req.params.accountNumber,
+      };
+    }
     if (userAccount.chequingAccountNumber === req.params.accountNumber) {
       if (userAccount.chequingAccountBalance < withdrawalAmount) {
         let message =
           "Unable to withdraw that amount. Please deposit more money!";
-        res.render("bank", { accounts, message });
+        res.render("withdrawal", { account, message });
       } else {
         await Client.findOneAndUpdate(
           { username: user.username },
@@ -49,7 +62,7 @@ router.post("/:accountNumber", async (req, res) => {
       if (userAccount.savingsAccountBalance < withdrawalAmount) {
         let message =
           "Unable to withdraw that amount. Please deposit more money!";
-        res.render("bank", { accounts, message });
+        res.render("withdrawal", { account, message });
       } else {
         await Client.findOneAndUpdate(
           { username: user.username },

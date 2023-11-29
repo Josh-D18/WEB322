@@ -11,11 +11,10 @@
 <body>
     {{>header}}
     <h2 class="bankTitle">Web Bank</h2>
-    <form action="/bank" method="post" class="bankForm">
+    <form action="/bank" method="post" class="bankForm" id="bankForm">
         {{#if message}}
             <p id="accountCreation">{{message}}</p>
         {{/if}}
-
     <label>Select Your Account</label>
         <select type="text" name="accountNumber" id="accountNumber" required="true"> 
             {{#if accounts}}
@@ -55,10 +54,25 @@
     const openAccountForm = document.getElementById("openAccountForm");
     const openAccount = document.getElementById("openAccount");
     const accountCreationMessage = document.getElementById("accountCreation");
+    const bankForm = document.getElementById("bankForm");
+    let isChecked = false;
+    
+    bankForm.addEventListener("submit", (e) => {
+        let radioButtons = document.getElementsByName("account");
+      for (let i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+            isChecked = true;
+            break; 
+        } 
+      }
+      if(!isChecked){
+        e.preventDefault();
+      }
+    });
 
     setTimeout(() => {
         accountCreationMessage.innerHTML = "";
-    }, 2050)
+    }, 2050);
 
     openAccountForm.addEventListener("submit", (e) => {
         if(!openAccount.checked){

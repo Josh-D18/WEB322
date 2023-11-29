@@ -9,21 +9,14 @@ router.get("/", async (req, res) => {
     const chequingAccount = accounts.chequingAccountNumber;
     const savingsAccount = accounts.savingsAccountNumber;
 
-    console.log(accounts, chequingAccount, savingsAccount);
-
     if (user) {
-      if (chequingAccount && savingsAccount) {
-        let message = "You already have 2 accounts!";
-        res.render("bank", { message, user, accounts });
-      } else {
-        res.render("openAccount", { user, accounts });
-      }
+      res.render("openAccount", { user });
     } else {
       res.redirect("/bank");
     }
   } catch (error) {
     console.log(error);
-    res.redirect("/");
+    res.redirect("/bank");
   }
 });
 
@@ -39,14 +32,14 @@ router.post("/", async (req, res) => {
 
       if (chequingAccount && savingsAccount) {
         message = "You already have 2 accounts!";
-        res.render("bank", { message, user });
+        res.render("openAccount", { message, user });
       } else {
         if (chequingAccount && accountType === "Chequing") {
           message = "You already have a Chequing Account!";
-          res.render("bank", { message, user, accounts });
+          res.render("openAccount", { message, user });
         } else if (savingsAccount && accountType === "Savings") {
           message = "You already have a Savings Account!";
-          res.render("bank", { message, user, accounts });
+          res.render("openAccount", { message, user });
         } else {
           const accountNumber = "00000" + Math.floor(Math.random() * 5000) + 1;
           let updateField;
@@ -70,7 +63,7 @@ router.post("/", async (req, res) => {
           );
 
           message = `${accountType} Account #${accountNumber} Created`;
-          res.render("bank", { message, user, accounts });
+          res.render("openAccount", { message, user });
         }
       }
     } else {
@@ -78,7 +71,7 @@ router.post("/", async (req, res) => {
     }
   } catch (error) {
     message = "Sorry, we cannot open an account!";
-    res.render("bank", { message, user });
+    res.render("openAccount", { message, user });
   }
 });
 
