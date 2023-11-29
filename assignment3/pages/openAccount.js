@@ -1,29 +1,28 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
 const Client = require("../database/client");
-const BankAccount = require("../database/bankaccount");
 
 router.get("/", async (req, res) => {
   const user = req.cookies.loggedInUser;
-
   try {
-    const account = await Client.findOne({ username: user.username });
-    const chequingAccount = account.chequingAccountNumber;
-    const savingsAccount = account.savingsAccountNumber;
+    const accounts = await Client.findOne({ username: user.username });
+    const chequingAccount = accounts.chequingAccountNumber;
+    const savingsAccount = accounts.savingsAccountNumber;
+
+    console.log(accounts, chequingAccount, savingsAccount);
 
     if (user) {
       if (chequingAccount && savingsAccount) {
         let message = "You already have 2 accounts!";
-        res.render("bank", { message, user });
+        res.render("bank", { message, user, accounts });
       } else {
-        res.render("openAccount", user);
+        res.render("openAccount", { user, accounts });
       }
     } else {
-      res.redirect("/");
+      res.redirect("/bank");
     }
   } catch (error) {
+    console.log(error);
     res.redirect("/");
   }
 });
@@ -32,9 +31,9 @@ router.post("/", async (req, res) => {
   const user = req.cookies.loggedInUser;
   try {
     if (user) {
-      const account = await Client.findOne({ username: user.username });
-      const chequingAccount = account.chequingAccountNumber;
-      const savingsAccount = account.savingsAccountNumber;
+      const accounts = await Client.findOne({ username: user.username });
+      const chequingAccount = accounts.chequingAccountNumber;
+      const savingsAccount = accounts.savingsAccountNumber;
       const accountType = req.body.accountType;
       let message = "";
 
@@ -44,18 +43,24 @@ router.post("/", async (req, res) => {
       } else {
         if (chequingAccount && accountType === "Chequing") {
           message = "You already have a Chequing Account!";
-          res.render("bank", { message, user });
+          res.render("bank", { message, user, accounts });
         } else if (savingsAccount && accountType === "Savings") {
           message = "You already have a Savings Account!";
-          res.render("bank", { message, user });
+          res.render("bank", { message, user, accounts });
         } else {
           const accountNumber = "00000" + Math.floor(Math.random() * 5000) + 1;
           let updateField;
 
           if (accountType === "Chequing") {
-            updateField = { chequingAccountNumber: accountNumber };
+            updateField = {
+              chequingAccountNumber: accountNumber,
+              chequingAccountBalance: 0,
+            };
           } else if (accountType === "Savings") {
-            updateField = { savingsAccountNumber: accountNumber };
+            updateField = {
+              savingsAccountNumber: accountNumber,
+              savingsAccountBalance: 0,
+            };
           }
 
           await Client.findOneAndUpdate(
@@ -65,7 +70,7 @@ router.post("/", async (req, res) => {
           );
 
           message = `${accountType} Account #${accountNumber} Created`;
-          res.render("bank", { message, user });
+          res.render("bank", { message, user, accounts });
         }
       }
     } else {

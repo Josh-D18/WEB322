@@ -1,60 +1,68 @@
 const express = require("express");
 const router = express.Router();
-const accounts = require("../accounts.json");
-const fs = require("fs");
-const path = require("path");
+const Client = require("../database/client");
 
-router.get("/:accountNumber", (req, res) => {
-  let accountNumbers = Object.keys(accounts);
-  if (accountNumbers.includes(req.params.accountNumber)) {
-    const account = {
-      accountBalance: accounts[req.params.accountNumber].accountBalance,
-      accountType: accounts[req.params.accountNumber].accountType,
-      accountNumber: req.params.accountNumber,
-    };
-    res.render("withdrawal", account);
+router.get("/:accountNumber", async (req, res) => {
+  const user = req.cookies.loggedInUser;
+  const userAccount = await Client.findOne({ username: user.username });
+  if (userAccount) {
+    if (userAccount.chequingAccountNumber === req.params.accountNumber) {
+      const account = {
+        accountBalance: userAccount.chequingAccountBalance,
+        accountType: "Chequing",
+        accountNumber: req.params.accountNumber,
+      };
+      res.render("withdrawal", { account, user });
+    } else if (userAccount.savingsAccountNumber === req.params.accountNumber) {
+      const account = {
+        accountBalance: userAccount.savingsAccountBalance,
+        accountType: "Savings",
+        accountNumber: req.params.accountNumber,
+      };
+      res.render("withdrawal", { account, user });
+    }
   } else {
     console.error("Account does not exist!");
     res.redirect("/bank");
   }
 });
 
-router.post("/:accountNumber", (req, res) => {
-  const account = accounts[`${req.params.accountNumber}`];
-  const withdrawlAmount = req.body.withdrawlAmount;
-  console.log(account.accountBalance, withdrawlAmount);
-
-  if (account.accountBalance < withdrawlAmount) {
-    let message = "Unable to withdraw that amount. Please deposit more money!";
-    res.render("bank", { accounts, message });
-  }
-
+router.post("/:accountNumber", async (req, res) => {
+  const user = req.cookies.loggedInUser;
+  const withdrawalAmount = req.body.withdrawlAmount;
   try {
-    const accountsPath = path.join(__dirname, "../accounts.json");
+    const userAccount = await Client.findOne({ username: user.username });
 
-    fs.readFile(accountsPath, "utf8", (err, accountsData) => {
-      if (err) {
-        console.log(err);
-        res.status(400).send("Error reading the account details.");
-        return;
+    if (userAccount.chequingAccountNumber === req.params.accountNumber) {
+      if (userAccount.chequingAccountBalance < withdrawalAmount) {
+        let message =
+          "Unable to withdraw that amount. Please deposit more money!";
+        res.render("bank", { accounts, message });
+      } else {
+        await Client.findOneAndUpdate(
+          { username: user.username },
+          { $inc: { chequingAccountBalance: -withdrawalAmount } }
+        );
+        res.redirect("/bank");
       }
-
-      const accounts = JSON.parse(accountsData);
-
-      accounts[`${req.params.accountNumber}`].accountBalance -= withdrawlAmount;
-      accounts.lastID = `${req.params.accountNumber}`;
-
-      fs.writeFile(accountsPath, JSON.stringify(accounts), "utf8", (err) => {
-        if (err) {
-          console.log(err);
-          res.status(400).send("Error saving the account details.");
-        } else {
-          res.redirect("/bank");
-        }
-      });
-    });
+    } else if (userAccount.savingsAccountNumber === req.params.accountNumber) {
+      if (userAccount.savingsAccountBalance < withdrawalAmount) {
+        let message =
+          "Unable to withdraw that amount. Please deposit more money!";
+        res.render("bank", { accounts, message });
+      } else {
+        await Client.findOneAndUpdate(
+          { username: user.username },
+          { $inc: { savingsAccountBalance: -withdrawalAmount } }
+        );
+        res.redirect("/bank");
+      }
+    } else {
+      res.status(404).send("Account not found");
+    }
   } catch (error) {
-    res.sendStatus(400);
+    console.error(error);
+    res.sendStatus(500);
   }
 });
 

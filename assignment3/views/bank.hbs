@@ -15,7 +15,18 @@
         {{#if message}}
             <p id="accountCreation">{{message}}</p>
         {{/if}}
-        <input type="text" name="accountNumber" id="accountNumber" placeholder="Enter Account Number" required="true">
+
+    <label>Select Your Account</label>
+        <select type="text" name="accountNumber" id="accountNumber" required="true"> 
+            {{#if accounts}}
+                {{#if accounts.chequingAccountNumber}}
+                    <option value={{accounts.chequingAccountNumber}}>{{accounts.chequingAccountNumber}}</option>
+                {{/if}}
+                {{#if accounts.savingsAccountNumber}}
+                    <option value={{accounts.savingsAccountNumber}}>{{accounts.savingsAccountNumber}}</option>
+                {{/if}}
+            {{/if}}
+        </select>
         <img src="../public/images/bankimage.jpg" alt="bank keypad" class="img">
         <div>
             <label for="balance">Balance</label>
@@ -44,10 +55,6 @@
     const openAccountForm = document.getElementById("openAccountForm");
     const openAccount = document.getElementById("openAccount");
     const accountCreationMessage = document.getElementById("accountCreation");
-
-    function submitFormOpenAccount(){
-
-    }
 
     setTimeout(() => {
         accountCreationMessage.innerHTML = "";

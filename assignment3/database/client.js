@@ -13,6 +13,14 @@ const ClientSchemaModel = new Schema({
     type: String,
     required: false,
   },
+  savingsAccountBalance: {
+    type: Number,
+    required: false,
+  },
+  chequingAccountBalance: {
+    type: Number,
+    required: false,
+  },
 });
 
 const ClientModel = mongoose.model("Client", ClientSchemaModel);

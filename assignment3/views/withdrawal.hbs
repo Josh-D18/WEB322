@@ -13,8 +13,8 @@
     <div>
         <div class="withdrawalContainer">
             <h2>Withdraw</h2>
-            <h3>Account Number:{{accountNumber}}</h3>
-            <form action="/withdrawal/{{accountNumber}}" method="post" class="form withdrawalForm">
+            <h3>Account Number:{{account.accountNumber}}</h3>
+            <form action="/withdrawal/{{account.accountNumber}}" method="post" class="form withdrawalForm">
                 <label for="withdrawlAmount" class="">Amount</label>
                 <input type="text" placeholder="Enter withdrawal amount" id="withdrawlAmount" name="withdrawlAmount"/>
 

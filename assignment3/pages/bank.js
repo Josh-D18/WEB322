@@ -1,30 +1,49 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
+const Client = require("../database/client");
 
 router.get("/", async (req, res) => {
   const user = req.cookies.loggedInUser;
-  if (user) {
-    res.render("bank", { user });
-  } else {
+  const accounts = {
+    chequingAccountNumber: "",
+    savingsAccountNumber: "",
+  };
+
+  console.log(user, "bank");
+  try {
+    const userAccount = await Client.findOne({ username: user.username });
+    if (userAccount.chequingAccountNumber) {
+      accounts.chequingAccountNumber = userAccount.chequingAccountNumber;
+    }
+
+    if (userAccount.savingsAccountNumber) {
+      accounts.savingsAccountNumber = userAccount.savingsAccountNumber;
+    }
+
+    if (user) {
+      res.render("bank", { user, accounts });
+    } else {
+      res.redirect("/");
+    }
+  } catch (error) {
     res.redirect("/");
   }
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const accountNumber = req.body.accountNumber;
   const account = req.body.account;
   const user = req.cookies.loggedInUser;
   let message = "";
 
   try {
-    const accountsPath = path.join(__dirname, "../accounts.json");
-    const accountsData = fs.readFileSync(accountsPath, "utf8");
-    const accounts = JSON.parse(accountsData);
-    let accountNumbers = Object.keys(accounts);
+    const userAccount = await Client.findOne({ username: user.username });
 
-    if (accountNumbers.includes(accountNumber)) {
+    if (
+      userAccount &&
+      (userAccount.chequingAccountNumber === accountNumber ||
+        userAccount.savingsAccountNumber === accountNumber)
+    ) {
       if (account === "balance") {
         res.redirect(`/balance/${accountNumber}`);
       } else if (account === "deposit") {
@@ -34,10 +53,11 @@ router.post("/", (req, res) => {
       }
     } else {
       message = "Account Does Not Exist!";
-      res.render("bank", { accounts, message, user });
+      res.render("bank", { account, message, user });
     }
   } catch (error) {
-    res.status(500).send("Error parsing accounts data.");
+    console.error("Error parsing accounts data:", error);
+    res.status(500).send("Internal Server Error.");
   }
 });
 

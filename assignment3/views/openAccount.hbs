@@ -26,7 +26,7 @@
                 <input type="radio" id="savings" name="accountType" value="Savings">
             </span>
 
-            <button class="btn" id="btn">Submit</button>
+            <button class="btn" id="btn" value="submit">Submit</button>
             <button class="btn" id="cancelBtn" type="button">Cancel</button>
         </form>
     </div>
@@ -35,29 +35,21 @@
 <script src="../public/js/header.js"></script>
 
 <script type="text/javascript">
-   const chequingInput = document.getElementById("chequing");
+    const chequingInput = document.getElementById("chequing");
     const savingsInput = document.getElementById("savings");
     const btn = document.getElementById("btn");
     const cancelBtn = document.getElementById("cancelBtn");
 
-    if (!chequingInput.checked && !savingsInput.checked) {
-            btn.disabled = true;
-    } 
-
-    function cancel (){
-        location.href = "/bank";
+    function updateSubmitButtonState() {
+    btn.disabled = !chequingInput.checked && !savingsInput.checked;
     }
 
-    function isChecked() {
-        if (!chequingInput.checked && !savingsInput.checked) {
-            btn.disabled = true;
-        } else {
-            btn.disabled = false;
-        }
+    function cancel() {
+    location.href = "/bank";
     }
 
-    chequingInput.addEventListener("click", isChecked);
-    savingsInput.addEventListener("click", isChecked);
+    chequingInput.addEventListener("change", updateSubmitButtonState);
+    savingsInput.addEventListener("change", updateSubmitButtonState);
     cancelBtn.addEventListener("click", cancel);
 </script>
 </html>

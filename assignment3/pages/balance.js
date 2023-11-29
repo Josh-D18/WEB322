@@ -1,41 +1,32 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const path = require("path");
+const Client = require("../database/client");
 
-router.get("/:accountNumber", (req, res) => {
+router.get("/:accountNumber", async (req, res) => {
   const user = req.cookies.loggedInUser;
-  const accountsPath = path.join(__dirname, "../accounts.json");
-  const accountsData = fs.readFileSync(accountsPath, "utf8");
-  const accounts = JSON.parse(accountsData);
-
-  let accountNumbers = Object.keys(accounts);
 
   try {
-    const accountsPath = path.join(__dirname, "../accounts.json");
-    const accountsData = fs.readFileSync(accountsPath, "utf8");
-    const accounts = JSON.parse(accountsData);
-
-    accounts.lastID = `${req.params.accountNumber}`;
-
-    fs.writeFile(accountsPath, JSON.stringify(accounts), "utf8", (err) => {
-      if (err) {
-        console.log(err);
-        res.status(400).send("Error!");
+    const userAccount = await Client.findOne({ username: user.username });
+    if (userAccount) {
+      if (userAccount.chequingAccountNumber === req.params.accountNumber) {
+        const account = {
+          accountBalance: userAccount.chequingAccountBalance,
+          accountType: "Chequing",
+          accountNumber: req.params.accountNumber,
+        };
+        res.render("balance", { account, user });
+      } else if (
+        userAccount.savingsAccountNumber === req.params.accountNumber
+      ) {
+        const account = {
+          accountBalance: userAccount.savingsAccountBalance,
+          accountType: "Savings",
+          accountNumber: req.params.accountNumber,
+        };
+        res.render("balance", { account, user });
       }
-    });
+    }
   } catch (error) {
-    res.sendStatus(400);
-  }
-
-  if (accountNumbers.includes(req.params.accountNumber)) {
-    const account = {
-      accountBalance: accounts[req.params.accountNumber].accountBalance,
-      accountType: accounts[req.params.accountNumber].accountType,
-      accountNumber: req.params.accountNumber,
-    };
-    res.render("balance", { account, user });
-  } else {
     console.error("Account does not exist!");
     res.redirect("/bank");
   }
